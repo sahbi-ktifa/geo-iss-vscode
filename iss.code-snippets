@@ -1,0 +1,124 @@
+{
+	// Place your global snippets here. Each snippet is defined under a snippet name and has a scope, prefix, body and 
+	// description. Add comma separated ids of the languages where the snippet is applicable in the scope field. If scope 
+	// is left empty or omitted, the snippet gets applied to all languages. The prefix is what is 
+	// used to trigger the snippet and the body will be expanded and inserted. Possible variables are: 
+	// $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders. 
+	// Placeholders with the same ids are connected.
+	// Example:
+	// "Print to console": {
+	// 	"scope": "javascript,typescript",
+	// 	"prefix": "log",
+	// 	"body": [
+	// 		"console.log('$1');",
+	// 		"$2"
+	// 	],
+	// 	"description": "Log output to console"
+	// }
+	"Vue2-Leaflet": {
+        "prefix": "vue2leaflet-htmlmap",
+        "body": [
+        	"<div style=\"height:100%\">",
+		  	"\t<l-map v-if=\"marker.lat\" :zoom=\"4\" :center=\"marker\">",
+			"\t\t<l-tile-layer :url=\"'http://{s}.tile.osm.org/{z}/{x}/{y}.png'\"></l-tile-layer>",
+			"\t\t<l-marker :lat-lng=\"marker\"></l-marker>",
+		  	"\t</l-map>",
+	  		"</div>"
+        ],
+        "description": "Insert vue2-leafet map markups with a marker"
+	},
+	"Vue2-Leaflet-yt": {
+        "prefix": "vue2leaflet-htmlyt-embed",
+        "body": [
+        	"<div style=\"height:100%\">",
+            "\t<iframe width=\"720\" height=\"405\"",
+            "\t\tsrc=\"https://www.youtube.com/embed/XPJYO2kB0rk?autoplay=1\" frameborder=\"0\"",
+            "\t\tallow=\"accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture\"></iframe>",
+            "</div>"
+        ],
+        "description": "Insert NASA youtube video"
+	},
+	"Vue2-leaflet-css": {
+		"prefix": "vue2leaflet-css-import",
+		"body": [
+			"<link rel=\"stylesheet\" href=\"//unpkg.com/leaflet/dist/leaflet.css\">"
+		],
+		"description": "Insert leaflet css"
+	},
+	"Vue2-leaflet-ts-component": {
+		"prefix": "vue2leaflet-ts-component-import",
+		"body": [
+			"({",
+			"\tcomponents : { LMap, LTileLayer, LMarker }",
+			"})"
+		],
+		"description": "Inject vue2leaflet components"
+	},
+	"Vue2-leaflet-ts": {
+		"prefix": "vue2leaflet-ts-created",
+		"body": [
+			"public marker: L.LatLng = L.latLng(0, 0);",
+			"",
+  			"created() {",
+    		"\tsetInterval(() => {",
+      		"\t\tAxios.get('api/iss').then(res => {",
+        	"\t\t\tthis.marker = L.latLng(parseFloat(res.data.latitude), parseFloat(res.data.longitude));",
+      		"\t\t});",
+    		"\t}, 3000);",
+  			"}"
+		],
+		"description": "Insert ts component part for vue2leaflet"
+	},
+	"ISS-Position": {
+		"prefix": "iss-position",
+		"body": [
+			"import org.json.JSONObject;" +
+			"import org.springframework.web.bind.annotation.GetMapping;" +
+			"import org.springframework.web.bind.annotation.RequestMapping;" +
+			"import org.springframework.web.bind.annotation.RestController;" +
+			"import org.springframework.web.client.RestTemplate;" +
+			"" +
+			"@RestController" +
+			"@RequestMapping(\"api/iss\")" +
+			"public class ISSPositionResource {" +
+			"" +
+			"    @GetMapping" +
+			"    public ISSPosition retrieveISSPosition() {" +
+			"        String result = new RestTemplate().getForObject(\"https://api.wheretheiss.at/v1/satellites/25544\", String.class);" +
+			"        JSONObject jsonObject = new JSONObject(result);" +
+			"        return new ISSPosition(jsonObject.getDouble(\"latitude\"), jsonObject.getDouble(\"longitude\"));" +
+			"    }" +
+			""+
+			"    class ISSPosition {" +
+			"        private Double longitude;" +
+			"        private Double latitude;" +
+			"" +
+			"        ISSPosition(Double latitude, Double longitude) {" +
+			"            this.latitude = latitude;" +
+			"            this.longitude = longitude;" +
+			"        }" +
+			"" +
+			"        public Double getLongitude() {" +
+			"            return longitude;" +
+			"        }" +
+			"" +
+			"        public Double getLatitude() {" +
+			"            return latitude;" +
+			"        }" +
+			"    }" +
+			"}"
+		],
+		"description": "ISS Position endpoint"
+	},
+	"JSONObject-dependency-pom": {
+		"prefix": "JSONObject-dependency-pom",
+		"body": [
+			"<dependency>" +
+			"   <groupId>org.json</groupId>" +
+			"   <artifactId>json</artifactId>" +
+			"   <version>20180813</version>" +
+			"</dependency>"
+		],
+		"description": "Insert JSONObject dependency maven"
+	}
+}
